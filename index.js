@@ -1,15 +1,18 @@
-var express = require('express')
-var app = express()
+const colors   = require('colors')
+const express  = require('express')
+const dbm      = require('./dbm')
+
+const app = express()
 
 // serve static file:
 app.use(express.static('public'))
 
-// Router of root:
+// Routers:
 app.get('/', function (req, res) {
-  res.redirect('/google_map_api.html')
+  res.send(dbm.getAllGeo())
 })
 
 // Start application:
 app.listen(3000, function () {
-  console.log('Application start on http://localhost:3000')
+  console.log('Application start on ' + 'http://localhost:3000'.yellow)
 })
