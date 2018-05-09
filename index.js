@@ -1,14 +1,15 @@
-var express = require('express');
-var app = express();
+var express = require('express')
+var app = express()
 
+// serve static file:
+app.use(express.static('public'))
+
+// Router of root:
 app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.get('/test', function(req,res) {
-    res.send("<h1>h1</h1>")
+  res.redirect('/google_map_api.html')
 })
 
+// Start application:
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+  console.log('Application start on http://localhost:3000')
+})
