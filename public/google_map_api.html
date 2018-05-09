@@ -19,18 +19,43 @@
     </style>
   </head>
   <body>
-    <div id="map" style="max-width: 800px; max-height: 600px;"></div>
+    <div id="map"></div>
     <script>
       var map;
+      const my_fake_data = [{"name":"WhiteSmoke AB","lat":57.688543,"lng":11.906423},{"name":"AGA Gas AB","lat":59.349846,"lng":18.144529},{"name":"GDF Suez","lat":null,"lng":null},{"name":"DNV (Det Morske Veritas)","lat":59.888103,"lng":10.562526},{"name":"SIS · Swedish Standards Institute","lat":59.32893,"lng":18.06491},{"name":"CIMET (Centre for International Maritime Education and Training)","lat":56.854041,"lng":14.833023},{"name":"Volvo Trucks","lat":58.902926,"lng":17.946529},{"name":"CRYO AB","lat":57.566028,"lng":11.247246},{"name":"STENA LNG","lat":57.701218,"lng":11.94566},{"name":"Liquiline","lat":59.313203,"lng":18.181647},{"name":"Skangass AS","lat":57.706873,"lng":11.940639},{"name":"Frederiet AB","lat":59.237941,"lng":18.517178},{"name":"E.ON - Karlshamnkraft","lat":56.163923,"lng":14.859039},{"name":"Preem AB","lat":59.339321,"lng":18.011455},{"name":"FKAB Marine Design","lat":58.351105,"lng":11.927191},{"name":"Svenska Kraftnät","lat":57.701189,"lng":11.946314},{"name":"Öresundskraft AB","lat":56.031401,"lng":12.703861},{"name":"Stockholms Gas","lat":57.701189,"lng":11.946314},{"name":"Göteborg Energi AB","lat":57.7105,"lng":11.997423},{"name":"Samson AB","lat":57.561543,"lng":11.96052},{"name":"Lunds EnergiKonecernen AB","lat":55.715097,"lng":13.219471},{"name":"KONECRANES LIFTTRUCKS AB","lat":56.346233,"lng":13.661625},{"name":"Cargotec","lat":56.827391,"lng":13.434722},{"name":"Mann-Teknik AB","lat":58.713521,"lng":13.828542},{"name":"Swedish Gas Association","lat":59.182823,"lng":17.633607},{"name":"Stockholm liquefied Methane gas station","lat":59.32893,"lng":18.06491},{"name":"Enagas S.A","lat":40.40357,"lng":-3.710346},{"name":"Gothenburg Port","lat":57.70887,"lng":11.97456},{"name":"Nynäshamn port","lat":58.905547,"lng":17.955489},{"name":"Port of Copenhagen & Malmö","lat":55.620627,"lng":13.00378},{"name":"Chalmers University","lat":57.566028,"lng":11.247246},{"name":"Swedish Maritime Administration","lat":58.583034,"lng":16.190782},{"name":"Alfa Laval","lat":55.72379,"lng":13.156087},{"name":"Royal Vopak","lat":51.905381,"lng":4.474401},{"name":"Wayne","lat":59.34786,"lng":18.023723},{"name":"SSPA Sweden AB","lat":57.689202,"lng":11.97643},{"name":"ÅF AB","lat":55.614322,"lng":12.98961},{"name":"Swedish Marine Technology Forum","lat":58.349201,"lng":11.926198},{"name":"World Maritime University, Malmö","lat":55.605226,"lng":12.98073}]
       function initMap() {
-        let latt, lngt;
-        navigator.geolocation.getCurrentPosition(position => {
-          latt = position.coords.latitude;
-          lngt = position.coords.longitude;
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: latt, lng: lngt},
-            zoom: 8
-          });
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 57, lng: 20},
+          zoom: 6
+        });
+
+        const infoWindow = new google.maps.InfoWindow;
+
+        my_fake_data.forEach(function(makerElem) {
+          var name = makerElem.name
+          var point = new google.maps.LatLng(
+            makerElem.lat, makerElem.lng
+          )
+
+          var infowincontent = document.createElement('div')
+          var strong = document.createElement('strong')
+          strong.textContent = name
+          infowincontent.appendChild(strong)
+          infowincontent.appendChild(document.createElement('br'))
+
+          var icon = {};
+          var maker = new google.maps.Marker({
+            map: map,
+            position: point,
+            label: icon.label
+          })
+          maker.addListener('click', function() {
+            window.open('/'+name,'_blank')
+          })
+          maker.addListener('hover', function() {
+            infoWindow.setContent(infowincontent);
+            infoWindow.open(map, maker);
+          })
         })
       }
     </script>

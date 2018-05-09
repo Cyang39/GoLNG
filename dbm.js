@@ -6,6 +6,7 @@ const db = low(adapter)
 
 module.exports.getAllGeo = function() {
     return db.get('supplier').map(function(item) {
-        return {name: item.name, lat: item.lat, lon: item.lon}
+        // changed the field name lon => lng, to suit the google api
+        return {name: item.name, lat: parseFloat(item.lat), lng: parseFloat(item.lon)}
     }).value()
 }

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init_database": "node scripts/init_database.js",
-    "start": "npm run init_database && node index.js"
+    "start": "npm run init_database && node index.js",
+    "clean": "rm database/db.json"
   },
   "keywords": [
     "homework"
