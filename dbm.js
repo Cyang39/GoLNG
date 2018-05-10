@@ -10,3 +10,9 @@ module.exports.getAllGeo = function() {
         return {name: item.name, lat: parseFloat(item.lat), lng: parseFloat(item.lon)}
     }).value()
 }
+
+module.exports.getDetail = function(name) {
+  return db.get('supplier')
+	   .find({ name: name })
+	   .value()
+}
