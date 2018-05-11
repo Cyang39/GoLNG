@@ -11,7 +11,7 @@ app.use(express.static('public'))
 // Routers:
 app.get('/', function (req, res) {
   // res.send(dbm.getAllGeo())
-  res.redirect('/google_map_api.html')
+  res.redirect('/google_map_api')
 })
 
 // Detail pages:
